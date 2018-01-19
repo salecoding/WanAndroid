@@ -2,6 +2,7 @@ package com.lw.wanandroid.ui.home;
 
 import com.lw.wanandroid.base.BaseContract;
 import com.lw.wanandroid.bean.Article;
+import com.lw.wanandroid.bean.Banner;
 
 import java.util.List;
 
@@ -11,11 +12,13 @@ import java.util.List;
 
 public class HomeContract {
 
-    interface View extends BaseContract.BaseView {
-        void setArticleList(List<Article> aircleList);
+    public interface View extends BaseContract.BaseView {
+        void setHomeBanners(List<Banner> banners);
+        void setHomeArticles(Article article);
     }
 
     interface Presenter extends BaseContract.BasePresenter<View> {
-        void loadArticleList();
+        void loadHomeBanners();
+        void loadHomeArticles();
     }
 }

@@ -3,7 +3,6 @@ package com.lw.wanandroid.di.component;
 import android.app.Activity;
 import android.content.Context;
 
-import com.lw.wanandroid.MainActivity;
 import com.lw.wanandroid.di.module.ActivityModule;
 import com.lw.wanandroid.di.scope.ContextLife;
 import com.lw.wanandroid.di.scope.PerActivity;
@@ -24,7 +23,5 @@ public interface ActivityComponent {
     Context getApplicationContext();
 
     Activity getActivity();
-
-    void inject(MainActivity activity);
 
 }

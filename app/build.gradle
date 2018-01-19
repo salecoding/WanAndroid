@@ -56,7 +56,8 @@ dependencies {
     compile rootProject.ext.dependencies["BaseAdapterHelper"]
     compile rootProject.ext.dependencies["glide"]
     compile rootProject.ext.dependencies["banner"]
-    compile rootProject.ext.dependencies["PhotoView"]
+    compile rootProject.ext.dependencies["circleimageview"]
+    compile rootProject.ext.dependencies["utilcode"]
     testCompile 'junit:junit:4.12'
 }
 repositories {

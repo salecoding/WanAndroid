@@ -5,12 +5,16 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.lw.wanandroid.di.component.DaggerFragmentComponent;
 import com.lw.wanandroid.di.component.FragmentComponent;
 import com.lw.wanandroid.di.module.FragmentModule;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.trello.rxlifecycle2.components.support.RxFragment;
+
+import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -20,6 +24,8 @@ import butterknife.Unbinder;
  */
 
 public abstract class BaseFragment<T extends BaseContract.BasePresenter> extends RxFragment implements BaseContract.BaseView {
+    @Nullable
+    @Inject
     protected T mPresenter;
     protected FragmentComponent mFragmentComponent;
     private Unbinder unbinder;
@@ -59,27 +65,27 @@ public abstract class BaseFragment<T extends BaseContract.BasePresenter> extends
 
     @Override
     public void showLoading() {
-
+        ToastUtils.showShort("showLoading");
     }
 
     @Override
     public void showSuccess() {
-
+        ToastUtils.showShort("showSuccess");
     }
 
     @Override
-    public void showFaild() {
-
+    public void showFaild(String errorMsg) {
+        ToastUtils.showShort(errorMsg);
     }
 
     @Override
     public void showNoNet() {
-
+        ToastUtils.showShort("showNoNet");
     }
 
     @Override
     public void onRetry() {
-
+        ToastUtils.showShort("onRetry");
     }
 
     @Override

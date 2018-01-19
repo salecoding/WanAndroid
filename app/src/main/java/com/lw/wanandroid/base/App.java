@@ -3,6 +3,7 @@ package com.lw.wanandroid.base;
 import android.app.Application;
 import android.content.Context;
 
+import com.blankj.utilcode.util.Utils;
 import com.lw.wanandroid.di.component.ApplicationComponent;
 import com.lw.wanandroid.di.component.DaggerApplicationComponent;
 import com.lw.wanandroid.di.module.ApplicationModule;
@@ -20,6 +21,7 @@ public class App extends Application {
         super.onCreate();
         mInstance = this;
         initApplicationComponent();
+        Utils.init(this);
     }
 
     /**

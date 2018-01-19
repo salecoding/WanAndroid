@@ -1,13 +1,19 @@
 package com.lw.wanandroid.base;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
+import com.lw.wanandroid.R;
 import com.lw.wanandroid.di.component.ActivityComponent;
 import com.lw.wanandroid.di.component.DaggerActivityComponent;
 import com.lw.wanandroid.di.module.ActivityModule;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+
+import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -17,9 +23,11 @@ import butterknife.Unbinder;
  */
 
 public abstract class BaseActivity<T extends BaseContract.BasePresenter> extends RxAppCompatActivity implements BaseContract.BaseView {
-
+    @Nullable
+    @Inject
     protected T mPresenter;
     protected ActivityComponent mActivityComponent;
+    protected Toolbar mToolbar;
     private Unbinder unbinder;
 
     protected abstract int getLayoutId();
@@ -36,6 +44,7 @@ public abstract class BaseActivity<T extends BaseContract.BasePresenter> extends
         setContentView(layoutId);
         initInjector();
         unbinder = ButterKnife.bind(this);
+        initToolBar();
         initView();
         attachView();
     }
@@ -58,7 +67,7 @@ public abstract class BaseActivity<T extends BaseContract.BasePresenter> extends
     }
 
     @Override
-    public void showFaild() {
+    public void showFaild(String errorMsg) {
 
     }
 
@@ -77,6 +86,21 @@ public abstract class BaseActivity<T extends BaseContract.BasePresenter> extends
         return this.bindToLifecycle();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case android.R.id.home:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    finishAfterTransition();
+                } else {
+                    finish();
+                }
+                break;
+        }
+        return true;
+    }
+
     /**
      * 初始化ActivityComponent
      */
@@ -85,6 +109,14 @@ public abstract class BaseActivity<T extends BaseContract.BasePresenter> extends
                 .applicationComponent(((App) getApplication()).getApplicationComponent())
                 .activityModule(new ActivityModule(this))
                 .build();
+    }
+
+    /**
+     * 初始化toolbar
+     */
+    private void initToolBar() {
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
     }
 
     /**

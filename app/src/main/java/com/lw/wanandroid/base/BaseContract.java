@@ -26,7 +26,7 @@ public interface BaseContract {
         void showSuccess();
 
         //失败重试
-        void showFaild();
+        void showFaild(String message);
 
         //显示当前网络不可用
         void showNoNet();

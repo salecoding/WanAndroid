@@ -9,7 +9,7 @@ import com.lw.wanandroid.base.BaseFragment;
  * Created by lw on 2018/1/18.
  */
 
-public class MyFragment extends BaseFragment {
+public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.View {
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_my;

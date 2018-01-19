@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.lw.wanandroid.base.BaseActivity;
@@ -30,7 +31,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
 
     @Override
     protected void initInjector() {
-        mActivityComponent.inject(this);
     }
 
     @Override
@@ -44,16 +44,25 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.navigation_home:
+                mToolbar.setTitle(R.string.app_name);
                 switchFragment(0);
                 break;
             case R.id.navigation_knowledgesystem:
+                mToolbar.setTitle(R.string.title_knowledgesystem);
                 switchFragment(1);
                 break;
             case R.id.navigation_my:
+                mToolbar.setTitle(R.string.title_my);
                 switchFragment(2);
                 break;
         }
         return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     /**
