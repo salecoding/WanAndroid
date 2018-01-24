@@ -52,6 +52,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".ui.article.ArticleContentActivity"/>
+        <activity android:name=".ui.article.ArticleTypeActivity"/>
+        <activity android:name=".ui.hotsearch.SearchActivity"/>
+        <activity android:name=".ui.my.LoginActivity"/>
+        <activity android:name=".ui.my.RegisterActivity"/>
     </application>
 
 </manifest>

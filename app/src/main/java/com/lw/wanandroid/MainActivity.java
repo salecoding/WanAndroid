@@ -7,10 +7,15 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.lw.wanandroid.base.BaseActivity;
 import com.lw.wanandroid.base.BaseFragment;
+import com.lw.wanandroid.bean.User;
 import com.lw.wanandroid.ui.home.HomeFragment;
+import com.lw.wanandroid.ui.hotsearch.HotFragment;
 import com.lw.wanandroid.ui.knowledgesystem.KnowledgeSystemFragment;
+import com.lw.wanandroid.ui.my.LoginContract;
+import com.lw.wanandroid.ui.my.LoginPresenter;
 import com.lw.wanandroid.ui.my.MyFragment;
 
 import java.util.ArrayList;
@@ -18,7 +23,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class MainActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity<LoginPresenter> implements BottomNavigationView.OnNavigationItemSelectedListener, LoginContract.View {
     @BindView(R.id.navigation)
     BottomNavigationView mNavigation;
     private List<BaseFragment> mFragments;
@@ -31,6 +36,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
 
     @Override
     protected void initInjector() {
+        mActivityComponent.inject(this);
     }
 
     @Override
@@ -65,6 +71,17 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menuHot) {
+            mToolbar.setTitle(R.string.hot_title);
+            switchFragment(3);
+        } else if (item.getItemId() == R.id.menuSearch) {
+            ARouter.getInstance().build("/hotsearch/SearchActivity").navigation();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     /**
      * 初始化fragment
      */
@@ -73,6 +90,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
         mFragments.add(HomeFragment.newInstance());
         mFragments.add(KnowledgeSystemFragment.newInstance());
         mFragments.add(MyFragment.newInstance());
+        mFragments.add(HotFragment.newInstance());
     }
 
     /**
@@ -93,5 +111,9 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
             ft.add(R.id.layout_fragment, targetFg);
         ft.show(targetFg);
         ft.commitAllowingStateLoss();
+    }
+
+    @Override
+    public void loginSuccess(User user) {
     }
 }

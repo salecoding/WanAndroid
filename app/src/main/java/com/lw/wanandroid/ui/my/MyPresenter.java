@@ -1,7 +1,6 @@
 package com.lw.wanandroid.ui.my;
 
 import com.lw.wanandroid.base.BasePresenter;
-import com.lw.wanandroid.ui.knowledgesystem.KnowledgeSystemContract;
 
 import javax.inject.Inject;
 

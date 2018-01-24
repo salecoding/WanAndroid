@@ -6,10 +6,16 @@ import com.lw.wanandroid.constant.Constant;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
 import okhttp3.CacheControl;
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
+import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -18,12 +24,18 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.lw.wanandroid.constant.Constant.SAVE_USER_LOGIN_KEY;
+import static com.lw.wanandroid.constant.Constant.SAVE_USER_REGISTER_KEY;
+import static com.lw.wanandroid.constant.Constant.SET_COOKIE_KEY;
+
 /**
  * Created by lw on 2017-04-01.
  */
 
 public class RetrofitManager {
-
+    private static long CONNECT_TIMEOUT = 60L;
+    private static long READ_TIMEOUT = 10L;
+    private static long WRITE_TIMEOUT = 10L;
     //设缓存有效期为1天
     private static final long CACHE_STALE_SEC = 60 * 60 * 24 * 1;
     //查询缓存的Cache-Control设置，为if-only-cache时只查询缓存而不会请求服务器，max-stale可以配合设置缓存失效时间
@@ -65,13 +77,38 @@ public class RetrofitManager {
         }
     };
 
-
+    /**
+     * 日志拦截器
+     */
     private static final Interceptor mLoggingInterceptor = new Interceptor() {
         @Override
         public Response intercept(Chain chain) throws IOException {
             Request request = chain.request();
             Response response = chain.proceed(request);
             return response;
+        }
+    };
+
+    /**
+     * cookie设置
+     */
+    private static CookieJar mCookieJar = new CookieJar() {
+        private final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
+
+        @Override
+        public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+            String requestUrl = url.toString();
+            // set-cookie maybe has multi, login to save cookie
+            if ((requestUrl.contains(SAVE_USER_LOGIN_KEY) || requestUrl.contains(SAVE_USER_REGISTER_KEY))) {
+                cookieStore.put(SET_COOKIE_KEY, cookies);
+            }
+        }
+
+        @Override
+        public List<Cookie> loadForRequest(HttpUrl url) {
+            List<Cookie> cookies = cookieStore.get(SET_COOKIE_KEY);
+            if (cookies == null) cookies = new ArrayList<>();
+            return cookies;
         }
     };
 
@@ -82,16 +119,19 @@ public class RetrofitManager {
                 Cache cache = new Cache(new File(App.getAppContext().getCacheDir(), "HttpCache"), 1024 * 1024 * 100);
                 if (mOkHttpClient == null) {
                     mOkHttpClient = new OkHttpClient.Builder().cache(cache)
-                            .connectTimeout(6, TimeUnit.SECONDS)
-                            .readTimeout(6, TimeUnit.SECONDS)
-                            .writeTimeout(6, TimeUnit.SECONDS)
+                            .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
+                            .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
+                            .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
                             .addInterceptor(mRewriteCacheControlInterceptor)
-                            .addInterceptor(mLoggingInterceptor).build();
+                            .addInterceptor(mLoggingInterceptor)
+                            .cookieJar(mCookieJar)
+                            .build();
                 }
             }
         }
         return mOkHttpClient;
     }
+
 
     /**
      * 获取Service

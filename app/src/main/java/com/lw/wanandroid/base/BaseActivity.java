@@ -3,15 +3,24 @@ package com.lw.wanandroid.base;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.blankj.utilcode.util.NetworkUtils;
+import com.blankj.utilcode.util.ToastUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lw.wanandroid.R;
+import com.lw.wanandroid.constant.Constant;
+import com.lw.wanandroid.constant.LoadType;
 import com.lw.wanandroid.di.component.ActivityComponent;
 import com.lw.wanandroid.di.component.DaggerActivityComponent;
 import com.lw.wanandroid.di.module.ActivityModule;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -27,6 +36,7 @@ public abstract class BaseActivity<T extends BaseContract.BasePresenter> extends
     @Inject
     protected T mPresenter;
     protected ActivityComponent mActivityComponent;
+    @Nullable
     protected Toolbar mToolbar;
     private Unbinder unbinder;
 
@@ -36,10 +46,20 @@ public abstract class BaseActivity<T extends BaseContract.BasePresenter> extends
 
     protected abstract void initView();
 
+    /**
+     * 是否显示返回键
+     *
+     * @return
+     */
+    protected boolean showHomeAsUp() {
+        return false;
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initActivityComponent();
+        ARouter.getInstance().inject(this);
         int layoutId = getLayoutId();
         setContentView(layoutId);
         initInjector();
@@ -47,6 +67,7 @@ public abstract class BaseActivity<T extends BaseContract.BasePresenter> extends
         initToolBar();
         initView();
         attachView();
+        if (!NetworkUtils.isConnected()) showNoNet();
     }
 
     @Override
@@ -62,18 +83,23 @@ public abstract class BaseActivity<T extends BaseContract.BasePresenter> extends
     }
 
     @Override
-    public void showSuccess() {
+    public void hideLoading() {
 
+    }
+
+    @Override
+    public void showSuccess(String successMsg) {
+        ToastUtils.showShort(successMsg);
     }
 
     @Override
     public void showFaild(String errorMsg) {
-
+        ToastUtils.showShort(errorMsg);
     }
 
     @Override
     public void showNoNet() {
-
+        ToastUtils.showShort(R.string.no_network_connection);
     }
 
     @Override
@@ -101,6 +127,41 @@ public abstract class BaseActivity<T extends BaseContract.BasePresenter> extends
         return true;
     }
 
+    protected void setToolbarTitle(String title) {
+        getSupportActionBar().setTitle(title);
+    }
+
+    /**
+     * 设置加载数据结果
+     *
+     * @param baseQuickAdapter
+     * @param refreshLayout
+     * @param list
+     * @param loadType
+     */
+    protected void setLoadDataResult(BaseQuickAdapter baseQuickAdapter, SwipeRefreshLayout refreshLayout, List list, @LoadType.checker int loadType) {
+        switch (loadType) {
+            case LoadType.TYPE_REFRESH_SUCCESS:
+                baseQuickAdapter.setNewData(list);
+                refreshLayout.setRefreshing(false);
+                break;
+            case LoadType.TYPE_REFRESH_ERROR:
+                refreshLayout.setRefreshing(false);
+                break;
+            case LoadType.TYPE_LOAD_MORE_SUCCESS:
+                if (list != null) baseQuickAdapter.addData(list);
+                break;
+            case LoadType.TYPE_LOAD_MORE_ERROR:
+                baseQuickAdapter.loadMoreFail();
+                break;
+        }
+        if (list == null || list.isEmpty() || list.size() < Constant.PAGE_SIZE) {
+            baseQuickAdapter.loadMoreEnd(false);
+        } else {
+            baseQuickAdapter.loadMoreComplete();
+        }
+    }
+
     /**
      * 初始化ActivityComponent
      */
@@ -116,7 +177,11 @@ public abstract class BaseActivity<T extends BaseContract.BasePresenter> extends
      */
     private void initToolBar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (mToolbar == null) {
+            throw new NullPointerException("toolbar can not be null");
+        }
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(showHomeAsUp());
     }
 
     /**
@@ -136,4 +201,6 @@ public abstract class BaseActivity<T extends BaseContract.BasePresenter> extends
             mPresenter.detachView();
         }
     }
+
+
 }

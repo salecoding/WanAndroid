@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     buildToolsVersion rootProject.ext.android.buildToolsVersion
@@ -11,6 +10,11 @@ android {
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
     }
 
     buildTypes {
@@ -58,6 +62,10 @@ dependencies {
     compile rootProject.ext.dependencies["banner"]
     compile rootProject.ext.dependencies["circleimageview"]
     compile rootProject.ext.dependencies["utilcode"]
+    compile rootProject.ext.dependencies["agentweb"]
+    compile rootProject.ext.dependencies["flowlayout"]
+    compile rootProject.ext.dependencies["arouter-api"]
+    annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
     testCompile 'junit:junit:4.12'
 }
 repositories {

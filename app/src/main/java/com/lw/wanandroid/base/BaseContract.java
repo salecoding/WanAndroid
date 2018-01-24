@@ -22,8 +22,11 @@ public interface BaseContract {
         //显示进度中
         void showLoading();
 
+        //隐藏进度
+        void hideLoading();
+
         //显示请求成功
-        void showSuccess();
+        void showSuccess(String message);
 
         //失败重试
         void showFaild(String message);

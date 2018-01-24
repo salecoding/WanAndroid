@@ -3,6 +3,33 @@
     <string name="title_home">首页</string>
     <string name="title_knowledgesystem">知识体系</string>
     <string name="title_my">我的</string>
-    <string name="hot_title">hot</string>
-    <string name="search_title">search</string>
+    <string name="hot_title">Hot</string>
+    <string name="search_title">Search</string>
+    <string name="empty_network_error">Network error, Click Retry</string>
+    <string name="empty_no_data">There is no data, Click Retry</string>
+    <!-- article -->
+    <string name="browser_title">用系统浏览器打开</string>
+    <string name="hot_key">大家都在搜</string>
+    <string name="common_use">常用网站</string>
+
+    <!-- navigation -->
+    <string name="my_bookmark">我的书签</string>
+    <string name="my_like">我喜欢的</string>
+    <string name="my_about">关于我们</string>
+    <string name="title_login">登陆</string>
+    <string name="title_register">注册</string>
+
+
+    <string name="like_title">收藏</string>
+    <string name="bookmark_time">收藏时间：%1$s</string>
+    <string name="bookmark_success">收藏成功</string>
+    <string name="bookmark_failed">收藏失败：%1$s</string>
+    <string name="bookmark_cancel_success">取消收藏成功</string>
+    <string name="bookmark_cancel_failed">取消收藏失败：%1$s</string>
+    <string name="username">用户名</string>
+    <string name="password">密码</string>
+    <string name="the_username_or_password_can_not_be_empty">用户名或密码不能为空</string>
+    <string name="no_network_connection">无网络连接</string>
+    <string name="login_success">登陆成功</string>
+    <string name="auto_login_success">自动登陆成功</string>
 </resources>
