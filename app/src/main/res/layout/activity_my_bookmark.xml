@@ -13,13 +13,7 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             style="@style/action_bar"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
+            app:title="@string/my_bookmark">
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
-
-    <FrameLayout
-        android:id="@+id/webContent"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
 </LinearLayout>

@@ -7,16 +7,17 @@ import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lw.wanandroid.R;
 import com.lw.wanandroid.base.BaseFragment;
 import com.lw.wanandroid.bean.Article;
-import com.lw.wanandroid.constant.Constant;
+import com.lw.wanandroid.event.LoginEvent;
+import com.lw.wanandroid.utils.RxBus;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by lw on 2018/1/22.
@@ -60,6 +61,15 @@ public class ArticleListFragment extends BaseFragment<ArticleListPresenter> impl
 
         /**请求数据*/
         mPresenter.loadKnowledgeSystemArticles(cid);
+
+        /**登陆成功刷新*/
+        RxBus.getInstance().toFlowable(LoginEvent.class)
+                .subscribe(new Consumer<LoginEvent>() {
+                    @Override
+                    public void accept(LoginEvent event) throws Exception {
+                        mPresenter.refresh();
+                    }
+                });
     }
 
     @Override
@@ -81,11 +91,9 @@ public class ArticleListFragment extends BaseFragment<ArticleListPresenter> impl
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        ARouter.getInstance().build("/article/ArticleContentActivity")
-                .withInt(Constant.CONTENT_ID_KEY, mArticleAdapter.getItem(position).getId())
-                .withString(Constant.CONTENT_URL_KEY, mArticleAdapter.getItem(position).getLink())
-                .withString(Constant.CONTENT_TITLE_KEY, mArticleAdapter.getItem(position).getTitle())
-                .navigation();
+        ArticleContentActivity.start(mArticleAdapter.getItem(position).getId(),
+                mArticleAdapter.getItem(position).getLink(), mArticleAdapter.getItem(position).getTitle(),
+                mArticleAdapter.getItem(position).getAuthor());
     }
 
     @Override

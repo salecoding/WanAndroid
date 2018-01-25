@@ -10,7 +10,7 @@ import com.lw.wanandroid.constant.Constant;
 import com.lw.wanandroid.constant.LoadType;
 import com.lw.wanandroid.net.ApiService;
 import com.lw.wanandroid.net.RetrofitManager;
-import com.lw.wanandroid.net.RxSchedulers;
+import com.lw.wanandroid.utils.RxSchedulers;
 import com.lw.wanandroid.ui.my.LoginActivity;
 
 import javax.inject.Inject;
@@ -81,9 +81,9 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
                                 if (response.getErrorCode() == 0) {
                                     bean.setCollect(!bean.isCollect());
                                     mView.collectArticleSuccess(position, bean);
-                                    mView.showSuccess(App.getAppContext().getString(R.string.bookmark_success));
+                                    mView.showSuccess(App.getAppContext().getString(R.string.collection_cancel_success));
                                 } else {
-                                    mView.showFaild(App.getAppContext().getString(R.string.bookmark_failed, response.getErrorMsg()));
+                                    mView.showFaild(App.getAppContext().getString(R.string.collection_cancel_failed, response.getErrorMsg()));
                                 }
                             }
                         }, new Consumer<Throwable>() {
@@ -102,9 +102,9 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
                                 if (response.getErrorCode() == 0) {
                                     bean.setCollect(!bean.isCollect());
                                     mView.collectArticleSuccess(position, bean);
-                                    mView.showSuccess(App.getAppContext().getString(R.string.bookmark_success));
+                                    mView.showSuccess(App.getAppContext().getString(R.string.collection_success));
                                 } else {
-                                    mView.showFaild(App.getAppContext().getString(R.string.bookmark_failed, response.getData()));
+                                    mView.showFaild(App.getAppContext().getString(R.string.collection_failed, response.getData()));
                                 }
                             }
                         }, new Consumer<Throwable>() {

@@ -16,5 +16,7 @@
     <color name="clickspan_color">#00ddb6</color>
     <color name="dull_blue">#3B4BBF</color>
     <color name="while_most_color">#e4e4e4</color>
+    <color name="alpha_10_black">#1A000000</color>
+    <color name="lightgray">#11000000</color>
 
 </resources>

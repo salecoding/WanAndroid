@@ -10,12 +10,9 @@ import android.view.MenuItem;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.lw.wanandroid.base.BaseActivity;
 import com.lw.wanandroid.base.BaseFragment;
-import com.lw.wanandroid.bean.User;
 import com.lw.wanandroid.ui.home.HomeFragment;
 import com.lw.wanandroid.ui.hotsearch.HotFragment;
 import com.lw.wanandroid.ui.knowledgesystem.KnowledgeSystemFragment;
-import com.lw.wanandroid.ui.my.LoginContract;
-import com.lw.wanandroid.ui.my.LoginPresenter;
 import com.lw.wanandroid.ui.my.MyFragment;
 
 import java.util.ArrayList;
@@ -23,7 +20,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class MainActivity extends BaseActivity<LoginPresenter> implements BottomNavigationView.OnNavigationItemSelectedListener, LoginContract.View {
+public class MainActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     @BindView(R.id.navigation)
     BottomNavigationView mNavigation;
     private List<BaseFragment> mFragments;
@@ -36,7 +33,6 @@ public class MainActivity extends BaseActivity<LoginPresenter> implements Bottom
 
     @Override
     protected void initInjector() {
-        mActivityComponent.inject(this);
     }
 
     @Override
@@ -111,9 +107,5 @@ public class MainActivity extends BaseActivity<LoginPresenter> implements Bottom
             ft.add(R.id.layout_fragment, targetFg);
         ft.show(targetFg);
         ft.commitAllowingStateLoss();
-    }
-
-    @Override
-    public void loginSuccess(User user) {
     }
 }

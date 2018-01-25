@@ -57,6 +57,9 @@
         <activity android:name=".ui.hotsearch.SearchActivity"/>
         <activity android:name=".ui.my.LoginActivity"/>
         <activity android:name=".ui.my.RegisterActivity"/>
+        <activity android:name=".ui.my.MyCollectionActivity"/>
+        <activity android:name=".ui.my.MyBookmarkActivity"/>
+        <activity android:name=".ui.setting.SettingActivity"/>
     </application>
 
 </manifest>

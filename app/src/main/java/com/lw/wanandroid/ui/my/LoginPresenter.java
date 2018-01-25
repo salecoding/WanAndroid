@@ -5,7 +5,7 @@ import com.lw.wanandroid.bean.DataResponse;
 import com.lw.wanandroid.bean.User;
 import com.lw.wanandroid.net.ApiService;
 import com.lw.wanandroid.net.RetrofitManager;
-import com.lw.wanandroid.net.RxSchedulers;
+import com.lw.wanandroid.utils.RxSchedulers;
 
 import javax.inject.Inject;
 

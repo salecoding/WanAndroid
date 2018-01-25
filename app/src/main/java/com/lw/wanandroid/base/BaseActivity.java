@@ -182,6 +182,11 @@ public abstract class BaseActivity<T extends BaseContract.BasePresenter> extends
         }
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(showHomeAsUp());
+        /**toolbar除掉阴影*/
+        getSupportActionBar().setElevation(0);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mToolbar.setElevation(0);
+        }
     }
 
     /**

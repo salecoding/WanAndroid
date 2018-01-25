@@ -16,7 +16,10 @@ import com.lw.wanandroid.base.BaseActivity;
 import com.lw.wanandroid.bean.Article;
 import com.lw.wanandroid.bean.KnowledgeSystem;
 import com.lw.wanandroid.constant.Constant;
+import com.lw.wanandroid.event.LoginEvent;
 import com.lw.wanandroid.ui.article.ArticleAdapter;
+import com.lw.wanandroid.ui.article.ArticleContentActivity;
+import com.lw.wanandroid.utils.RxBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +27,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by lw on 2018/1/23.
@@ -61,6 +65,15 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
         mArticleAdapter.setOnItemChildClickListener(this);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mArticleAdapter.setOnLoadMoreListener(this);
+
+        /**登陆成功刷新*/
+        RxBus.getInstance().toFlowable(LoginEvent.class)
+                .subscribe(new Consumer<LoginEvent>() {
+                    @Override
+                    public void accept(LoginEvent event) throws Exception {
+                        mPresenter.refresh();
+                    }
+                });
     }
 
     @Override
@@ -120,11 +133,9 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        ARouter.getInstance().build("/article/ArticleContentActivity")
-                .withInt(Constant.CONTENT_ID_KEY, mArticleAdapter.getItem(position).getId())
-                .withString(Constant.CONTENT_URL_KEY, mArticleAdapter.getItem(position).getLink())
-                .withString(Constant.CONTENT_TITLE_KEY, mArticleAdapter.getItem(position).getTitle())
-                .navigation();
+        ArticleContentActivity.start(mArticleAdapter.getItem(position).getId(),
+                mArticleAdapter.getItem(position).getLink(), mArticleAdapter.getItem(position).getTitle(),
+                mArticleAdapter.getItem(position).getAuthor());
     }
 
     @Override

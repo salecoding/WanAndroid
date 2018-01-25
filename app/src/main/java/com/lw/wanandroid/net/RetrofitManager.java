@@ -6,16 +6,10 @@ import com.lw.wanandroid.constant.Constant;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
 import okhttp3.CacheControl;
-import okhttp3.Cookie;
-import okhttp3.CookieJar;
-import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -23,10 +17,6 @@ import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import static com.lw.wanandroid.constant.Constant.SAVE_USER_LOGIN_KEY;
-import static com.lw.wanandroid.constant.Constant.SAVE_USER_REGISTER_KEY;
-import static com.lw.wanandroid.constant.Constant.SET_COOKIE_KEY;
 
 /**
  * Created by lw on 2017-04-01.
@@ -46,7 +36,7 @@ public class RetrofitManager {
     // 避免出现 HTTP 403 Forbidden，参考：http://stackoverflow.com/questions/13670692/403-forbidden-with-java-but-not-web-browser
     private static final String AVOID_HTTP403_FORBIDDEN = "User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11";
     private static volatile OkHttpClient mOkHttpClient;
-    private static RetrofitManager mRetrofitManager;
+
     /**
      * 云端响应头拦截器，用来配置缓存策略
      * Dangerous interceptor that rewrites the server's cache-control header.
@@ -90,29 +80,10 @@ public class RetrofitManager {
     };
 
     /**
-     * cookie设置
+     * 获取OkHttpClient实例
+     *
+     * @return
      */
-    private static CookieJar mCookieJar = new CookieJar() {
-        private final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
-
-        @Override
-        public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
-            String requestUrl = url.toString();
-            // set-cookie maybe has multi, login to save cookie
-            if ((requestUrl.contains(SAVE_USER_LOGIN_KEY) || requestUrl.contains(SAVE_USER_REGISTER_KEY))) {
-                cookieStore.put(SET_COOKIE_KEY, cookies);
-            }
-        }
-
-        @Override
-        public List<Cookie> loadForRequest(HttpUrl url) {
-            List<Cookie> cookies = cookieStore.get(SET_COOKIE_KEY);
-            if (cookies == null) cookies = new ArrayList<>();
-            return cookies;
-        }
-    };
-
-
     private static OkHttpClient getOkHttpClient() {
         if (mOkHttpClient == null) {
             synchronized (RetrofitManager.class) {
@@ -124,7 +95,7 @@ public class RetrofitManager {
                             .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
                             .addInterceptor(mRewriteCacheControlInterceptor)
                             .addInterceptor(mLoggingInterceptor)
-                            .cookieJar(mCookieJar)
+                            .cookieJar(new CookiesManager())
                             .build();
                 }
             }

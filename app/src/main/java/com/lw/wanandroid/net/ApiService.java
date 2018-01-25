@@ -75,13 +75,6 @@ public interface ApiService {
     Observable<DataResponse<List<HotKey>>> getHotKeys();
 
     /**
-     * 我的常用网址
-     * http://www.wanandroid.com/lg/collect/usertools/json
-     */
-    @GET("/lg/collect/usertools/json")
-    Observable<DataResponse<List<Friend>>> getBookMarks();
-
-    /**
      * 搜索
      * http://www.wanandroid.com/article/query/0/json
      *
@@ -147,4 +140,37 @@ public interface ApiService {
     @POST("/lg/uncollect/{id}/json")
     @FormUrlEncoded
     Observable<DataResponse> removeCollectArticle(@Path("id") int id, @Field("originId") int originId);
+
+
+    /**
+     * 获取自己收藏的文章列表
+     *
+     * @param page page
+     * @return Deferred<Article>
+     */
+    @GET("/lg/collect/list/{page}/json")
+    Observable<Article> getCollectArticles(@Path("page") int page);
+
+    /**
+     * 我的书签
+     * http://www.wanandroid.com/lg/collect/usertools/json
+     */
+    @GET("/lg/collect/usertools/json")
+    Observable<DataResponse<List<Friend>>> getBookmarks();
+
+    /**
+     * 编辑书签
+     * http://www.wanandroid.com/lg/collect/updatetool/json
+     */
+    @POST("/lg/collect/usertools/json")
+    @FormUrlEncoded
+    Observable<DataResponse> editBookmark(@Field("id") int id, @Field("name") String name, @Field("link") String link);
+
+    /**
+     * 删除书签
+     * http://www.wanandroid.com/lg/collect/deletetool/json
+     */
+    @POST("/lg/collect/usertools/json")
+    @FormUrlEncoded
+    Observable<DataResponse> delBookmark(@Field("id") int id);
 }

@@ -11,6 +11,8 @@ import com.lw.wanandroid.R;
 import com.lw.wanandroid.base.BaseActivity;
 import com.lw.wanandroid.bean.User;
 import com.lw.wanandroid.constant.Constant;
+import com.lw.wanandroid.event.LoginEvent;
+import com.lw.wanandroid.utils.RxBus;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -37,7 +39,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     protected void initView() {
-
+        mEtUsername.setText(SPUtils.getInstance(Constant.SHARED_NAME).getString(Constant.USERNAME_KEY));
+        mEtPassword.setText(SPUtils.getInstance(Constant.SHARED_NAME).getString(Constant.PASSWORD_KEY));
     }
 
     @Override
@@ -61,6 +64,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         SPUtils.getInstance(Constant.SHARED_NAME).put(Constant.LOGIN_KEY, true);
         SPUtils.getInstance(Constant.SHARED_NAME).put(Constant.USERNAME_KEY, user.getUsername());
         SPUtils.getInstance(Constant.SHARED_NAME).put(Constant.PASSWORD_KEY, user.getPassword());
+        /**登陆成功通知其他界面刷新*/
+        RxBus.getInstance().post(new LoginEvent());
         this.finish();
     }
 

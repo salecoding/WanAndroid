@@ -12,6 +12,7 @@ import com.lw.wanandroid.base.BaseFragment;
 import com.lw.wanandroid.bean.Friend;
 import com.lw.wanandroid.bean.HotKey;
 import com.lw.wanandroid.constant.Constant;
+import com.lw.wanandroid.ui.article.ArticleContentActivity;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
@@ -92,14 +93,6 @@ public class HotFragment extends BaseFragment<HotPresenter> implements HotContra
         return new HotFragment();
     }
 
-    private void startArticleContentActivity(int id, String link, String name) {
-        ARouter.getInstance().build("/article/ArticleContentActivity")
-                .withInt(Constant.CONTENT_ID_KEY, id)
-                .withString(Constant.CONTENT_URL_KEY, link)
-                .withString(Constant.CONTENT_TITLE_KEY, name)
-                .navigation();
-    }
-
     private void setListener() {
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mTflHotKeys.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
@@ -115,10 +108,9 @@ public class HotFragment extends BaseFragment<HotPresenter> implements HotContra
         mTflHotFriends.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
             @Override
             public boolean onTagClick(View view, int position, FlowLayout parent) {
-                int id = mHotFriendAdapter.getItem(position).getId();
-                String link = mHotFriendAdapter.getItem(position).getLink();
-                String name = mHotFriendAdapter.getItem(position).getName();
-                startArticleContentActivity(id, link, name);
+                ArticleContentActivity.start(mHotFriendAdapter.getItem(position).getId(),
+                        mHotFriendAdapter.getItem(position).getLink(), mHotFriendAdapter.getItem(position).getName(),
+                        null);
                 return false;
             }
         });

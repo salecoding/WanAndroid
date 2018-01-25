@@ -27,6 +27,7 @@ public class Constant {
      * cid key
      */
     public static final String CONTENT_CID_KEY = "cid";
+    public static final String CONTENT_AUTHOR_KEY = "author";
     /**
      * childrenData key
      */
@@ -52,7 +53,6 @@ public class Constant {
     public static final String USERNAME_KEY = "username";
     public static final String PASSWORD_KEY = "password";
     public static final String LOGIN_KEY = "login";
-    public static final String USER_KEY = "user";
     public static final String BANNER_KEY = "banner";
     public static final String ARTICLE_KEY = "article";
 }

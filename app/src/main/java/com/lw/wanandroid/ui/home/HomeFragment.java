@@ -15,8 +15,11 @@ import com.lw.wanandroid.bean.Banner;
 import com.lw.wanandroid.bean.KnowledgeSystem;
 import com.lw.wanandroid.constant.Constant;
 import com.lw.wanandroid.constant.LoadType;
-import com.lw.wanandroid.net.GlideImageLoader;
+import com.lw.wanandroid.event.LoginEvent;
 import com.lw.wanandroid.ui.article.ArticleAdapter;
+import com.lw.wanandroid.ui.article.ArticleContentActivity;
+import com.lw.wanandroid.utils.GlideImageLoader;
+import com.lw.wanandroid.utils.RxBus;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 
@@ -26,6 +29,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by lw on 2018/1/18.
@@ -71,6 +75,15 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
         /**请求数据*/
         mPresenter.loadHomeData();
+
+        /**登陆成功刷新*/
+        RxBus.getInstance().toFlowable(LoginEvent.class)
+                .subscribe(new Consumer<LoginEvent>() {
+                    @Override
+                    public void accept(LoginEvent event) throws Exception {
+                        mPresenter.refresh();
+                    }
+                });
     }
 
     @Override
@@ -79,7 +92,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     }
 
     @Override
-    public void setHomeBanners(List<Banner> banners) {
+    public void setHomeBanners(final List<Banner> banners) {
         List<String> images = new ArrayList();
         List<String> titles = new ArrayList();
         for (Banner banner : banners) {
@@ -94,6 +107,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         mBannerAds.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
+                ArticleContentActivity.start(banners.get(position).getId(), banners.get(position).getUrl(),
+                        banners.get(position).getTitle(), null);
             }
         });
     }
@@ -125,11 +140,9 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        ARouter.getInstance().build("/article/ArticleContentActivity")
-                .withInt(Constant.CONTENT_ID_KEY, mArticleAdapter.getItem(position).getId())
-                .withString(Constant.CONTENT_URL_KEY, mArticleAdapter.getItem(position).getLink())
-                .withString(Constant.CONTENT_TITLE_KEY, mArticleAdapter.getItem(position).getTitle())
-                .navigation();
+        ArticleContentActivity.start(mArticleAdapter.getItem(position).getId(),
+                mArticleAdapter.getItem(position).getLink(), mArticleAdapter.getItem(position).getTitle(),
+                mArticleAdapter.getItem(position).getAuthor());
     }
 
     @Override

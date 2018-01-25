@@ -21,15 +21,25 @@
 
 
     <string name="like_title">收藏</string>
-    <string name="bookmark_time">收藏时间：%1$s</string>
-    <string name="bookmark_success">收藏成功</string>
-    <string name="bookmark_failed">收藏失败：%1$s</string>
-    <string name="bookmark_cancel_success">取消收藏成功</string>
-    <string name="bookmark_cancel_failed">取消收藏失败：%1$s</string>
+    <string name="collection_time">收藏时间：%1$s</string>
+    <string name="collection_success">收藏成功</string>
+    <string name="collection_failed">收藏失败：%1$s</string>
+    <string name="collection_cancel_success">取消收藏成功</string>
+    <string name="collection_cancel_failed">取消收藏失败：%1$s</string>
     <string name="username">用户名</string>
     <string name="password">密码</string>
     <string name="the_username_or_password_can_not_be_empty">用户名或密码不能为空</string>
     <string name="no_network_connection">无网络连接</string>
     <string name="login_success">登陆成功</string>
     <string name="auto_login_success">自动登陆成功</string>
+    <string name="click_avatar_login">点击头像登陆</string>
+    <string name="logout">退出登陆</string>
+    <string name="my_collection">我的收藏</string>
+    <string name="bookmark">书签</string>
+    <string name="setting">设置</string>
+    <string name="not_login">没有登陆</string>
+    <string name="share_title">分享</string>
+    <string name="share_type_title">分享专题</string>
+    <string name="share_article_url">%1$s分享【%2$s】：%3$s</string>
+    <string name="share_type_url">%1$s分享【%2$s】专题：http://www.wanandroid.com/article/list/0?cid=%3$d</string>
 </resources>

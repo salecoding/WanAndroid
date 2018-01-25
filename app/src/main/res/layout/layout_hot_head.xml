@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dp_10"
-        android:background="@drawable/list_item_selector"
+        android:background="@color/item_bg"
         android:padding="@dimen/dp_10"
         android:text="@string/my_bookmark"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dp_10"
-        android:background="@drawable/list_item_selector"
+        android:background="@color/item_bg"
         android:padding="@dimen/dp_10"
         android:text="@string/hot_key"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
@@ -48,7 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dp_10"
-        android:background="@drawable/list_item_selector"
+        android:background="@color/item_bg"
         android:padding="@dimen/dp_10"
         android:text="@string/common_use"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"/>

@@ -1,12 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:gravity="center"
-              android:orientation="vertical">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/title_my"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civAvatar"
+            android:layout_width="@dimen/dp_72"
+            android:layout_height="@dimen/dp_72"
+            android:src="@drawable/ic_avatar"/>
+
+        <TextView
+            android:id="@+id/tvNick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_10"
+            android:text="@string/click_avatar_login"
+            android:textColor="@color/white"
+            android:textSize="@dimen/medium"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <View
+                style="@style/line_view"/>
+
+
+            <TextView
+                android:id="@+id/tvMyCollection"
+                style="@style/tv_operating_style"
+                android:background="@drawable/item_selector"
+                android:drawableLeft="@drawable/ic_collection"
+                android:drawablePadding="@dimen/dp_5"
+                android:text="@string/my_collection"/>
+
+            <View
+                style="@style/line_view"/>
+
+            <TextView
+                android:id="@+id/tvMyBookmark"
+                style="@style/tv_operating_style"
+                android:background="@drawable/item_selector"
+                android:drawableLeft="@drawable/ic_bookmark"
+                android:drawablePadding="@dimen/dp_5"
+                android:text="@string/my_bookmark"/>
+
+            <View
+                style="@style/line_view"/>
+
+            <TextView
+                android:id="@+id/tvSetting"
+                style="@style/tv_operating_style"
+                android:background="@drawable/item_selector"
+                android:drawableLeft="@drawable/ic_setting"
+                android:drawablePadding="@dimen/dp_5"
+                android:text="@string/setting"/>
+
+            <View
+                style="@style/line_view"/>
+
+            <LinearLayout
+                android:id="@+id/llLogout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/item_selector"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/dp_15"
+                    android:text="@string/logout"
+                    android:textSize="@dimen/big_small"
+                    android:textStyle="bold"/>
+
+                <View
+                    style="@style/line_view"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

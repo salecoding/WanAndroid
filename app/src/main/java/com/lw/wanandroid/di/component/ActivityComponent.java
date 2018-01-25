@@ -3,10 +3,10 @@ package com.lw.wanandroid.di.component;
 import android.app.Activity;
 import android.content.Context;
 
-import com.lw.wanandroid.MainActivity;
 import com.lw.wanandroid.di.module.ActivityModule;
 import com.lw.wanandroid.di.scope.ContextLife;
 import com.lw.wanandroid.di.scope.PerActivity;
+import com.lw.wanandroid.ui.article.ArticleContentActivity;
 import com.lw.wanandroid.ui.hotsearch.SearchActivity;
 import com.lw.wanandroid.ui.my.LoginActivity;
 
@@ -31,5 +31,5 @@ public interface ActivityComponent {
 
     void inject(LoginActivity activity);
 
-    void inject(MainActivity activity);
+    void inject(ArticleContentActivity activity);
 }
