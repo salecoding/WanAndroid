@@ -65,8 +65,8 @@ public abstract class BaseActivity<T extends BaseContract.BasePresenter> extends
         initInjector();
         unbinder = ButterKnife.bind(this);
         initToolBar();
-        initView();
         attachView();
+        initView();
         if (!NetworkUtils.isConnected()) showNoNet();
     }
 

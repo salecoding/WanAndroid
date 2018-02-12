@@ -4,10 +4,12 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.blankj.utilcode.util.ToastUtils;
 import com.lw.wanandroid.base.BaseActivity;
 import com.lw.wanandroid.base.BaseFragment;
 import com.lw.wanandroid.ui.home.HomeFragment;
@@ -25,6 +27,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
     BottomNavigationView mNavigation;
     private List<BaseFragment> mFragments;
     private int mLastFgIndex;
+    private long mExitTime;
 
     @Override
     protected int getLayoutId() {
@@ -76,6 +79,20 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
             ARouter.getInstance().build("/hotsearch/SearchActivity").navigation();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if ((System.currentTimeMillis() - mExitTime) > 2000) {
+                ToastUtils.showShort(R.string.exit_system);
+                mExitTime = System.currentTimeMillis();
+            } else {
+                this.finish();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     /**

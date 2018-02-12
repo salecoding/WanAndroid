@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+def dbflow_version = "4.2.4"
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     buildToolsVersion rootProject.ext.android.buildToolsVersion
@@ -42,6 +43,7 @@ dependencies {
     compile rootProject.ext.dependencies["cardview"]
     compile rootProject.ext.dependencies["design"]
     compile rootProject.ext.dependencies["recyclerview"]
+    compile rootProject.ext.dependencies["preference"]
     compile rootProject.ext.dependencies["retrofit2"]
     compile rootProject.ext.dependencies["converter-scalars"]
     compile rootProject.ext.dependencies["converter-gson"]
@@ -66,6 +68,11 @@ dependencies {
     compile rootProject.ext.dependencies["flowlayout"]
     compile rootProject.ext.dependencies["arouter-api"]
     annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
+
+    annotationProcessor rootProject.ext.dependencies["dbflow-processor"]
+    compile rootProject.ext.dependencies["dbflow-core"]
+    compile rootProject.ext.dependencies["dbflow"]
+    compile rootProject.ext.dependencies["dbflow-sqlcipher"]
     testCompile 'junit:junit:4.12'
 }
 repositories {

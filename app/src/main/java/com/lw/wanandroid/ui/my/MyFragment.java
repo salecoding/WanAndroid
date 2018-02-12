@@ -82,7 +82,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
      */
     private void logout() {
         /**设置退出登陆*/
-        SPUtils.getInstance(Constant.SHARED_NAME).put(Constant.LOGIN_KEY, false);
+        SPUtils.getInstance(Constant.SHARED_NAME).clear();
         setUserStatusInfo();
         /**清除cookies*/
         CookiesManager.clearAllCookies();

@@ -4,6 +4,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 
@@ -16,10 +17,13 @@ import com.lw.wanandroid.base.BaseActivity;
 import com.lw.wanandroid.bean.Article;
 import com.lw.wanandroid.bean.KnowledgeSystem;
 import com.lw.wanandroid.constant.Constant;
+import com.lw.wanandroid.db.HistoryModel;
 import com.lw.wanandroid.event.LoginEvent;
 import com.lw.wanandroid.ui.article.ArticleAdapter;
 import com.lw.wanandroid.ui.article.ArticleContentActivity;
 import com.lw.wanandroid.utils.RxBus;
+import com.zhy.view.flowlayout.FlowLayout;
+import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +47,11 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     ArticleAdapter mArticleAdapter;
     @Autowired
     public String hotNameKey;
+    private HistoryAdapter mHistoryAdapter;
+    private SearchView mSearchView;
+    private List<HistoryModel> mHistoryModels;
+    private View mSearchHeadView;
+    private TagFlowLayout mTflHistorys;
 
     @Override
     protected int getLayoutId() {
@@ -59,12 +68,19 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
         /**设置RecyclerView*/
         mRvArticleList.setLayoutManager(new LinearLayoutManager(this));
         mRvArticleList.setAdapter(mArticleAdapter);
+        /**设置SearchHeadView*/
+        mSearchHeadView = LayoutInflater.from(this).inflate(R.layout.layout_search_head, null);
+        mTflHistorys = (TagFlowLayout) mSearchHeadView.findViewById(R.id.tflHistorys);
+        mArticleAdapter.addHeaderView(mSearchHeadView);
 
         /**设置事件监听*/
         mArticleAdapter.setOnItemClickListener(this);
         mArticleAdapter.setOnItemChildClickListener(this);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mArticleAdapter.setOnLoadMoreListener(this);
+
+        /**加载历史搜索记录*/
+        mPresenter.loadHistory();
 
         /**登陆成功刷新*/
         RxBus.getInstance().toFlowable(LoginEvent.class)
@@ -74,6 +90,16 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
                         mPresenter.refresh();
                     }
                 });
+
+        mTflHistorys.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
+            @Override
+            public boolean onTagClick(View view, int position, FlowLayout parent) {
+                String name = mHistoryAdapter.getItem(position).getName();
+                mSearchView.setQuery(name, false);
+                mPresenter.loadSearchArtcles(name);
+                return false;
+            }
+        });
     }
 
     @Override
@@ -84,19 +110,20 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search, menu);
-        final SearchView searchView = (SearchView) menu.findItem(R.id.menuSearch).getActionView();
-        searchView.setMaxWidth(1920);
-        searchView.setIconified(false);
-        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+        mSearchView = (SearchView) menu.findItem(R.id.menuSearch).getActionView();
+        mSearchView.setMaxWidth(1920);
+        mSearchView.setIconified(false);
+        mSearchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
                 SearchActivity.this.finish();
                 return true;
             }
         });
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                mPresenter.addHistory(query);
                 mPresenter.loadSearchArtcles(query);
                 return true;
             }
@@ -107,7 +134,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
             }
         });
         /**是否是从hot页面过来的*/
-        searchView.setQuery(hotNameKey, true);
+        mSearchView.setQuery(hotNameKey, true);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -139,6 +166,11 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     }
 
     @Override
+    public void showLoading() {
+        mSwipeRefreshLayout.setRefreshing(true);
+    }
+
+    @Override
     public void onLoadMoreRequested() {
         mPresenter.loadMore();
     }
@@ -151,5 +183,19 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     @Override
     public void collectArticleSuccess(int position, Article.DatasBean bean) {
         mArticleAdapter.setData(position, bean);
+    }
+
+    @Override
+    public void setHistory(List<HistoryModel> historyModels) {
+        this.mHistoryModels = historyModels;
+        mHistoryAdapter = new HistoryAdapter(this, mHistoryModels);
+        mTflHistorys.setAdapter(mHistoryAdapter);
+        mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void addHistorySuccess(HistoryModel historyModel) {
+        if (mHistoryModels != null) mHistoryModels.add(0, historyModel);
+        mHistoryAdapter.notifyDataChanged();
     }
 }

@@ -9,6 +9,8 @@ import com.lw.wanandroid.di.scope.PerActivity;
 import com.lw.wanandroid.ui.article.ArticleContentActivity;
 import com.lw.wanandroid.ui.hotsearch.SearchActivity;
 import com.lw.wanandroid.ui.my.LoginActivity;
+import com.lw.wanandroid.ui.my.MyBookmarkActivity;
+import com.lw.wanandroid.ui.my.MyCollectionActivity;
 
 import dagger.Component;
 
@@ -32,4 +34,8 @@ public interface ActivityComponent {
     void inject(LoginActivity activity);
 
     void inject(ArticleContentActivity activity);
+
+    void inject(MyCollectionActivity activity);
+
+    void inject(MyBookmarkActivity activity);
 }

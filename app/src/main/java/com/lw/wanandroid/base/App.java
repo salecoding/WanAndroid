@@ -9,6 +9,7 @@ import com.lw.wanandroid.BuildConfig;
 import com.lw.wanandroid.di.component.ApplicationComponent;
 import com.lw.wanandroid.di.component.DaggerApplicationComponent;
 import com.lw.wanandroid.di.module.ApplicationModule;
+import com.raizlabs.android.dbflow.config.FlowManager;
 
 /**
  * Created by lw on 2018/1/18.
@@ -25,6 +26,7 @@ public class App extends Application {
         initApplicationComponent();
         Utils.init(this);
         intARouter();
+        FlowManager.init(this);
     }
 
     /**

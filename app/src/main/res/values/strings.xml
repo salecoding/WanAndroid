@@ -7,6 +7,11 @@
     <string name="search_title">Search</string>
     <string name="empty_network_error">Network error, Click Retry</string>
     <string name="empty_no_data">There is no data, Click Retry</string>
+    <string name="setting_auto_update">开启后WIFI自动下载更新应用</string>
+    <string name="auto_update">自动更新</string>
+    <string name="check_update">检查更新</string>
+    <string name="about">关于玩Android</string>
+    <string name="system_settings">系统设置</string>
     <!-- article -->
     <string name="browser_title">用系统浏览器打开</string>
     <string name="hot_key">大家都在搜</string>
@@ -42,4 +47,5 @@
     <string name="share_type_title">分享专题</string>
     <string name="share_article_url">%1$s分享【%2$s】：%3$s</string>
     <string name="share_type_url">%1$s分享【%2$s】专题：http://www.wanandroid.com/article/list/0?cid=%3$d</string>
+    <string name="exit_system">再按一次退出程序</string>
 </resources>

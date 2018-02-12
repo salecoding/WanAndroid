@@ -11,7 +11,8 @@ ext {
     ]
 
     dependVersion = [
-            support: "25.3.1"
+            support: "25.3.1",
+            dbflow : "4.2.4"
     ]
 
     dependencies = [
@@ -21,6 +22,7 @@ ext {
             "design"              : "com.android.support:design:${dependVersion.support}",
             "recyclerview"        : "com.android.support:recyclerview-v7:${dependVersion.support}",
             "cardview"            : "com.android.support:cardview-v7:${dependVersion.support}",
+            "preference"          : "com.android.support:preference-v14:25.3.1",
 
             //http
             "retrofit2"           : "com.squareup.retrofit2:retrofit:2.1.0",
@@ -58,5 +60,11 @@ ext {
             //alibaba
             "arouter-api"         : "com.alibaba:arouter-api:1.3.1",
             "arouter-compiler"    : "com.alibaba:arouter-compiler:1.1.4",
+
+            //DBFLOW
+            "dbflow-processor"    : "com.github.Raizlabs.DBFlow:dbflow-processor:${dependVersion.dbflow}",
+            "dbflow-core"         : "com.github.Raizlabs.DBFlow:dbflow-core:${dependVersion.dbflow}",
+            "dbflow"              : "com.github.Raizlabs.DBFlow:dbflow:${dependVersion.dbflow}",
+            "dbflow-sqlcipher"    : "com.github.Raizlabs.DBFlow:dbflow-sqlcipher:${dependVersion.dbflow}"
     ]
 }

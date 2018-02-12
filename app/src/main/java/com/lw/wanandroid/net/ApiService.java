@@ -149,7 +149,7 @@ public interface ApiService {
      * @return Deferred<Article>
      */
     @GET("/lg/collect/list/{page}/json")
-    Observable<Article> getCollectArticles(@Path("page") int page);
+    Observable<DataResponse<Article>> getCollectArticles(@Path("page") int page);
 
     /**
      * 我的书签

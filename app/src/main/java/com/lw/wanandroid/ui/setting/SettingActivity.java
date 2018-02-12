@@ -21,7 +21,9 @@ public class SettingActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.layout_fragment, SettingFragment.newInstance())
+                .commit();
     }
 
     @Override
