@@ -38,5 +38,4 @@ WanAndroidClient https://github.com/wangzailfm/WanAndroidClient
 
 非常感谢以上开源项目的作者！谢谢！
 
-
-[Github](https://github.com/salecoding)
+[Github](https://github.com/salecoding) 
