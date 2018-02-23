@@ -1,6 +1,18 @@
 apply plugin: 'com.android.application'
-def dbflow_version = "4.2.4"
+//定义时间
+def releaseTime() {
+    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
+}
+
 android {
+    signingConfigs {
+        config {
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
+            storeFile file(RELEASE_STORE_FILE)
+            storePassword RELEASE_STORE_PASSWORD
+        }
+    }
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     buildToolsVersion rootProject.ext.android.buildToolsVersion
 
@@ -16,21 +28,50 @@ android {
                 arguments = [moduleName: project.getName()]
             }
         }
+        multiDexEnabled true
     }
 
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.config
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            minifyEnabled false
+            signingConfig signingConfigs.config
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
-//    compileOptions {
-//        sourceCompatibility JavaVersion.VERSION_1_8
-//        targetCompatibility JavaVersion.VERSION_1_8
-//    }
-
     buildToolsVersion '26.0.2'
+
+    // 批量打包
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                //输出apk名称为：WanAndroid_渠道名_版本名_时间.apk
+                def fileName = "WanAndroid_${variant.productFlavors[0].name}_v${defaultConfig.versionName}_${releaseTime()}.apk"
+                outputFileName = fileName
+            }
+        }
+    }
+
+    flavorDimensions "default"
+
+    productFlavors {
+        yingyongbao {}
+        xiaomi {}
+        _360 {}
+        baidu {}
+        wandoujia {}
+    }
+
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
 }
 
 dependencies {
@@ -68,6 +109,8 @@ dependencies {
     compile rootProject.ext.dependencies["flowlayout"]
     compile rootProject.ext.dependencies["arouter-api"]
     annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
+    compile rootProject.ext.dependencies["umeng-common"]
+    compile rootProject.ext.dependencies["umeng-analytics"]
 
     annotationProcessor rootProject.ext.dependencies["dbflow-processor"]
     compile rootProject.ext.dependencies["dbflow-core"]

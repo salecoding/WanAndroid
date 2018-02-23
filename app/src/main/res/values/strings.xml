@@ -11,6 +11,7 @@
     <string name="auto_update">自动更新</string>
     <string name="check_update">检查更新</string>
     <string name="about">关于玩Android</string>
+    <string name="test_page">测试页面</string>
     <string name="system_settings">系统设置</string>
     <!-- article -->
     <string name="browser_title">用系统浏览器打开</string>

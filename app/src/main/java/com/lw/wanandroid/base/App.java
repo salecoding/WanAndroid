@@ -6,10 +6,12 @@ import android.content.Context;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.Utils;
 import com.lw.wanandroid.BuildConfig;
+import com.lw.wanandroid.constant.Constant;
 import com.lw.wanandroid.di.component.ApplicationComponent;
 import com.lw.wanandroid.di.component.DaggerApplicationComponent;
 import com.lw.wanandroid.di.module.ApplicationModule;
 import com.raizlabs.android.dbflow.config.FlowManager;
+import com.umeng.commonsdk.UMConfigure;
 
 /**
  * Created by lw on 2018/1/18.
@@ -27,6 +29,8 @@ public class App extends Application {
         Utils.init(this);
         intARouter();
         FlowManager.init(this);
+        /**初始化友盟SDK*/
+        UMConfigure.init(this, Constant.UMENG_APP_KEY, Constant.UMENG_CHANNEL, UMConfigure.DEVICE_TYPE_PHONE, null);
     }
 
     /**

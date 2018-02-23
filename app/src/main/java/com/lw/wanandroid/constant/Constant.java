@@ -56,4 +56,7 @@ public class Constant {
     public static final String USER_KEY = "user";
     public static final String BANNER_KEY = "banner";
     public static final String ARTICLE_KEY = "article";
+
+    public static final String UMENG_APP_KEY = "5a8120838f4a9d484e0002e2";
+    public static final String UMENG_CHANNEL = "WanAndroid";
 }

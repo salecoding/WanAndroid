@@ -60,6 +60,7 @@
         <activity android:name=".ui.my.MyCollectionActivity"/>
         <activity android:name=".ui.my.MyBookmarkActivity"/>
         <activity android:name=".ui.setting.SettingActivity"/>
+        <activity android:name=".ui.setting.TestPageActivity"/>
     </application>
 
 </manifest>

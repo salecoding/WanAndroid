@@ -27,5 +27,8 @@
         <android.support.v7.preference.Preference
             android:key="about"
             android:title="@string/about"/>
+        <android.support.v7.preference.Preference
+            android:key="testPage"
+            android:title="@string/test_page"/>
     </android.support.v7.preference.PreferenceCategory>
 </android.support.v7.preference.PreferenceScreen>
