@@ -18,4 +18,4 @@ Try to build a www.wanandroid.com client
 * [Glide](https://github.com/bumptech/glide)
 
 #项目运行截图
-![描述](https://github.com/foolish1016/MoreView/blob/master/MoreBtn/Preview/7A33E4FC-D15F-4FA2-99D4-371FA7C8DEAA.png)
+![](https://coding.net/u/salecoding/p/WanAndroid/git/raw/master/screenshots/Screenshot_2018-02-23-14-00-13-312_com.will.weiyu.png)
