@@ -18,18 +18,18 @@ Try to build a www.wanandroid.com client
 * [Glide](https://github.com/bumptech/glide)
 
 # 项目运行截图
-![](https://coding.net/u/salecoding/p/WanAndroid/git/raw/master/screenshots/Screenshot_2018-02-23-14-00-13-312_com.will.weiyu.png){:height="500px" width="300px"}
-![](https://coding.net/u/salecoding/p/WanAndroid/git/raw/master/screenshots/Screenshot_2018-02-23-14-00-20-507_com.will.weiyu.png){:height="500px" width="300px"}
-![](https://coding.net/u/salecoding/p/WanAndroid/git/raw/master/screenshots/Screenshot_2018-02-23-14-00-24-498_com.will.weiyu.png){:height="500px" width="300px"}
-![](https://coding.net/u/salecoding/p/WanAndroid/git/raw/master/screenshots/Screenshot_2018-02-23-14-00-32-235_com.will.weiyu.png){:height="500px" width="300px"}
-![](https://coding.net/u/salecoding/p/WanAndroid/git/raw/master/screenshots/Screenshot_2018-02-23-14-00-42-897_com.will.weiyu.png){:height="500px" width="300px"}
-![](https://coding.net/u/salecoding/p/WanAndroid/git/raw/master/screenshots/Screenshot_2018-02-23-14-00-51-177_com.will.weiyu.png){:height="500px" width="300px"}
-![](https://coding.net/u/salecoding/p/WanAndroid/git/raw/master/screenshots/Screenshot_2018-02-23-14-01-29-488_com.will.weiyu.png){:height="500px" width="300px"}
-![](https://coding.net/u/salecoding/p/WanAndroid/git/raw/master/screenshots/Screenshot_2018-02-23-14-01-46-958_com.will.weiyu.png){:height="500px" width="300px"}
-![](https://coding.net/u/salecoding/p/WanAndroid/git/raw/master/screenshots/Screenshot_2018-02-23-14-01-52-929_com.will.weiyu.png){:height="500px" width="300px"}
-![](https://coding.net/u/salecoding/p/WanAndroid/git/raw/master/screenshots/Screenshot_2018-02-23-14-01-57-654_com.will.weiyu.png){:height="500px" width="300px"}
-![](https://coding.net/u/salecoding/p/WanAndroid/git/raw/master/screenshots/Screenshot_2018-02-23-14-02-15-107_com.will.weiyu.png){:height="500px" width="300px"}
-![](https://coding.net/u/salecoding/p/WanAndroid/git/raw/master/screenshots/Screenshot_2018-02-23-14-02-27-830_com.will.weiyu.png){:height="500px" width="300px"}
+![](https://coding.net/u/salecoding/p/WanAndroid/git/raw/master/screenshots/Screenshot_2018-02-23-14-00-13-312_com.will.weiyu.png)
+![](https://coding.net/u/salecoding/p/WanAndroid/git/raw/master/screenshots/Screenshot_2018-02-23-14-00-20-507_com.will.weiyu.png)
+![](https://coding.net/u/salecoding/p/WanAndroid/git/raw/master/screenshots/Screenshot_2018-02-23-14-00-24-498_com.will.weiyu.png
+![](https://coding.net/u/salecoding/p/WanAndroid/git/raw/master/screenshots/Screenshot_2018-02-23-14-00-32-235_com.will.weiyu.png)
+![](https://coding.net/u/salecoding/p/WanAndroid/git/raw/master/screenshots/Screenshot_2018-02-23-14-00-42-897_com.will.weiyu.png)
+![](https://coding.net/u/salecoding/p/WanAndroid/git/raw/master/screenshots/Screenshot_2018-02-23-14-00-51-177_com.will.weiyu.png)
+![](https://coding.net/u/salecoding/p/WanAndroid/git/raw/master/screenshots/Screenshot_2018-02-23-14-01-29-488_com.will.weiyu.png)
+![](https://coding.net/u/salecoding/p/WanAndroid/git/raw/master/screenshots/Screenshot_2018-02-23-14-01-46-958_com.will.weiyu.png)
+![](https://coding.net/u/salecoding/p/WanAndroid/git/raw/master/screenshots/Screenshot_2018-02-23-14-01-52-929_com.will.weiyu.png)
+![](https://coding.net/u/salecoding/p/WanAndroid/git/raw/master/screenshots/Screenshot_2018-02-23-14-01-57-654_com.will.weiyu.png)
+![](https://coding.net/u/salecoding/p/WanAndroid/git/raw/master/screenshots/Screenshot_2018-02-23-14-02-15-107_com.will.weiyu.png)
+![](https://coding.net/u/salecoding/p/WanAndroid/git/raw/master/screenshots/Screenshot_2018-02-23-14-02-27-830_com.will.weiyu.png)
 
 # 参考项目
 WanAndroidClient https://github.com/wangzailfm/WanAndroidClient
