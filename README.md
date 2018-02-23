@@ -2,7 +2,7 @@
 Try to build a www.wanandroid.com client
 
 #APK
-[WanAndroid_v1.0_20180212.apk](https://coding.net/u/salecoding/p/WanAndroid/git/blob/master/app/release/WanAndroid_v1.0_20180212.apk)
+[WanAndroid_v1.0_20180212.apk](https://coding.net/u/salecoding/p/WanAndroid/git/raw/master/app/release/WanAndroid_v1.0_20180212.apk)
 
 #接口
 [玩Android接口](http://www.wanandroid.com/blog/show/2)
