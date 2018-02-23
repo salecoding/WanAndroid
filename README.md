@@ -32,5 +32,6 @@ Try to build a www.wanandroid.com client
 ![](https://coding.net/u/salecoding/p/WanAndroid/git/raw/master/screenshots/Screenshot_2018-02-23-14-02-27-830_com.will.weiyu.png){:height="500px" width="300px"}
 
 #参考项目
-https://github.com/wangzailfm/WanAndroidClient
-非常感谢
+WanAndroidClient https://github.com/wangzailfm/WanAndroidClient
+
+非常感谢以上开源项目的作者！谢谢！
