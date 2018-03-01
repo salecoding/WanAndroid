@@ -8,6 +8,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.ToastUtils;
 import com.lw.wanandroid.base.BaseActivity;
@@ -22,10 +23,11 @@ import java.util.List;
 
 import butterknife.BindView;
 
+@Route(path = "/wanandroid/MainActivity")
 public class MainActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     @BindView(R.id.navigation)
     BottomNavigationView mNavigation;
-    private List<BaseFragment> mFragments;
+    private List<BaseFragment> mFragments = new ArrayList<>();
     private int mLastFgIndex;
     private long mExitTime;
 
@@ -88,7 +90,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
                 ToastUtils.showShort(R.string.exit_system);
                 mExitTime = System.currentTimeMillis();
             } else {
-                this.finish();
+                System.exit(0);
             }
             return true;
         }
@@ -99,7 +101,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
      * 初始化fragment
      */
     private void initFragment() {
-        mFragments = new ArrayList<>();
         mFragments.add(HomeFragment.newInstance());
         mFragments.add(KnowledgeSystemFragment.newInstance());
         mFragments.add(MyFragment.newInstance());

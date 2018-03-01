@@ -61,6 +61,11 @@ public class KnowledgeSystemFragment extends BaseFragment<KnowledgeSystemPresent
     }
 
     @Override
+    public void showFaild(String errorMsg) {
+        mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
     public void setKnowledgeSystems(List<KnowledgeSystem> knowledgeSystems) {
         mKnowledgeSystemAdapter.setNewData(knowledgeSystems);
         mSwipeRefreshLayout.setRefreshing(false);

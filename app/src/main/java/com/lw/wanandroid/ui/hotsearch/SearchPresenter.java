@@ -1,26 +1,16 @@
 package com.lw.wanandroid.ui.hotsearch;
 
-import android.support.annotation.NonNull;
-import android.util.Log;
-
-import com.blankj.utilcode.util.SPUtils;
-import com.lw.wanandroid.R;
-import com.lw.wanandroid.base.App;
 import com.lw.wanandroid.base.BasePresenter;
 import com.lw.wanandroid.bean.Article;
 import com.lw.wanandroid.bean.DataResponse;
-import com.lw.wanandroid.constant.Constant;
 import com.lw.wanandroid.constant.LoadType;
 import com.lw.wanandroid.db.HistoryModel;
 import com.lw.wanandroid.db.HistoryModel_Table;
 import com.lw.wanandroid.net.ApiService;
 import com.lw.wanandroid.net.RetrofitManager;
-import com.lw.wanandroid.ui.my.LoginActivity;
+import com.lw.wanandroid.utils.ArticleUtils;
 import com.lw.wanandroid.utils.RxSchedulers;
-import com.raizlabs.android.dbflow.sql.language.CursorResult;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
-import com.raizlabs.android.dbflow.structure.database.transaction.QueryTransaction;
-import com.raizlabs.android.dbflow.structure.database.transaction.Transaction;
 
 import java.util.Date;
 import java.util.List;
@@ -85,53 +75,7 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
 
     @Override
     public void collectArticle(final int position, final Article.DatasBean bean) {
-        if (SPUtils.getInstance(Constant.SHARED_NAME).getBoolean(Constant.LOGIN_KEY)) {
-            if (bean.isCollect()) {
-                RetrofitManager.create(ApiService.class).removeCollectArticle(bean.getId(), -1)
-                        .compose(RxSchedulers.<DataResponse>applySchedulers())
-                        .compose(mView.<DataResponse>bindToLife())
-                        .subscribe(new Consumer<DataResponse>() {
-                            @Override
-                            public void accept(DataResponse response) throws Exception {
-                                if (response.getErrorCode() == 0) {
-                                    bean.setCollect(!bean.isCollect());
-                                    mView.collectArticleSuccess(position, bean);
-                                    mView.showSuccess(App.getAppContext().getString(R.string.collection_cancel_success));
-                                } else {
-                                    mView.showFaild(App.getAppContext().getString(R.string.collection_cancel_failed, response.getErrorMsg()));
-                                }
-                            }
-                        }, new Consumer<Throwable>() {
-                            @Override
-                            public void accept(Throwable throwable) throws Exception {
-                                mView.showFaild(throwable.getMessage());
-                            }
-                        });
-            } else {
-                RetrofitManager.create(ApiService.class).addCollectArticle(bean.getId())
-                        .compose(RxSchedulers.<DataResponse>applySchedulers())
-                        .compose(mView.<DataResponse>bindToLife())
-                        .subscribe(new Consumer<DataResponse>() {
-                            @Override
-                            public void accept(DataResponse response) throws Exception {
-                                if (response.getErrorCode() == 0) {
-                                    bean.setCollect(!bean.isCollect());
-                                    mView.collectArticleSuccess(position, bean);
-                                    mView.showSuccess(App.getAppContext().getString(R.string.collection_success));
-                                } else {
-                                    mView.showFaild(App.getAppContext().getString(R.string.collection_failed, response.getData()));
-                                }
-                            }
-                        }, new Consumer<Throwable>() {
-                            @Override
-                            public void accept(Throwable throwable) throws Exception {
-                                mView.showFaild(throwable.getMessage());
-                            }
-                        });
-            }
-        } else {
-            LoginActivity.start();
-        }
+        ArticleUtils.collectArticle(mView, position, bean);
     }
 
     @Override

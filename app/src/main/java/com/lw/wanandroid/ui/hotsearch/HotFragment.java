@@ -74,6 +74,11 @@ public class HotFragment extends BaseFragment<HotPresenter> implements HotContra
     }
 
     @Override
+    public void showFaild(String errorMsg) {
+        mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
     public void setHotData(List<HotKey> hotKeys, List<Friend> friends) {
         mHotKeyAdapter = new HotAdapter(getContext(), hotKeys);
         mTflHotKeys.setAdapter(mHotKeyAdapter);

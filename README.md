@@ -1,8 +1,8 @@
-# WanAndroid
+#WanAndroid
 Try to build a www.wanandroid.com client
 
-#  APK
-[WanAndroid_v1.0_20180212.apk](https://coding.net/u/salecoding/p/WanAndroid/git/raw/master/app/release/WanAndroid_v1.0_20180212.apk)
+# APK
+[app-release.apk](https://coding.net/u/salecoding/p/WanAndroid/git/raw/master/app/release/app-release.apk)
 
 # 接口
 [玩Android接口](http://www.wanandroid.com/blog/show/2)
@@ -38,4 +38,4 @@ WanAndroidClient https://github.com/wangzailfm/WanAndroidClient
 
 非常感谢以上开源项目的作者！谢谢！
 
-[Coding](https://coding.net/u/salecoding/project) 
+[Github](https://github.com/salecoding) 
