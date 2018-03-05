@@ -45,22 +45,51 @@
         android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.article.ArticleContentActivity"/>
-        <activity android:name=".ui.article.ArticleTypeActivity"/>
-        <activity android:name=".ui.hotsearch.SearchActivity"/>
-        <activity android:name=".ui.my.LoginActivity"/>
-        <activity android:name=".ui.my.RegisterActivity"/>
-        <activity android:name=".ui.my.MyCollectionActivity"/>
-        <activity android:name=".ui.my.MyBookmarkActivity"/>
-        <activity android:name=".ui.setting.SettingActivity"/>
-        <activity android:name=".ui.setting.TestPageActivity"/>
+        <activity
+            android:name=".ui.article.ArticleContentActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.article.ArticleTypeActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.hotsearch.SearchActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.LoginActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.RegisterActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.MyCollectionActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.MyBookmarkActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.setting.SettingActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.setting.TestPageActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
