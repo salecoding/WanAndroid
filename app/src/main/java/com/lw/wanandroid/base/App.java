@@ -11,6 +11,8 @@ import com.lw.wanandroid.di.component.DaggerApplicationComponent;
 import com.lw.wanandroid.di.module.ApplicationModule;
 import com.raizlabs.android.dbflow.config.FlowManager;
 
+import me.yokeyword.fragmentation.Fragmentation;
+
 /**
  * Created by lw on 2018/1/18.
  */
@@ -27,6 +29,10 @@ public class App extends Application {
         Utils.init(this);
         intARouter();
         FlowManager.init(this);
+        Fragmentation.builder()
+                .stackViewMode(Fragmentation.BUBBLE)                // 显示悬浮球 ; 其他Mode:SHAKE: 摇一摇唤出   NONE：隐藏
+                .debug(BuildConfig.DEBUG)
+                .install();
     }
 
     /**
