@@ -77,6 +77,7 @@ dependencies {
     compile rootProject.ext.dependencies["utilcode"]
     compile rootProject.ext.dependencies["agentweb"]
     compile rootProject.ext.dependencies["flowlayout"]
+    compile rootProject.ext.dependencies["fragmentation"]
     compile rootProject.ext.dependencies["arouter-api"]
     annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
 
