@@ -1,13 +1,12 @@
 package com.lw.wanandroid.ui.my;
 
-import com.lw.wanandroid.R;
-import com.lw.wanandroid.base.App;
 import com.lw.wanandroid.base.BasePresenter;
 import com.lw.wanandroid.bean.Article;
 import com.lw.wanandroid.bean.DataResponse;
 import com.lw.wanandroid.constant.LoadType;
 import com.lw.wanandroid.net.ApiService;
 import com.lw.wanandroid.net.RetrofitManager;
+import com.lw.wanandroid.utils.ArticleUtils;
 import com.lw.wanandroid.utils.RxSchedulers;
 
 import javax.inject.Inject;
@@ -65,25 +64,6 @@ public class MyCollectionPresenter extends BasePresenter<MyCollectionContract.Vi
 
     @Override
     public void unCollectArticle(final int position, final Article.DatasBean bean) {
-        RetrofitManager.create(ApiService.class).removeCollectArticle(bean.getId(), -1)
-                .compose(RxSchedulers.<DataResponse>applySchedulers())
-                .compose(mView.<DataResponse>bindToLife())
-                .subscribe(new Consumer<DataResponse>() {
-                    @Override
-                    public void accept(DataResponse response) throws Exception {
-                        if (response.getErrorCode() == 0) {
-                            bean.setCollect(!bean.isCollect());
-                            mView.unCollectArticleSuccess(position);
-                            mView.showSuccess(App.getAppContext().getString(R.string.collection_cancel_success));
-                        } else {
-                            mView.showFaild(App.getAppContext().getString(R.string.collection_cancel_failed, response.getData()));
-                        }
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        mView.showFaild(throwable.getMessage());
-                    }
-                });
+        ArticleUtils.collectArticle(mView, position, bean);
     }
 }

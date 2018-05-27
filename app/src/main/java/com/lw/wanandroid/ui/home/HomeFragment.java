@@ -92,6 +92,11 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     }
 
     @Override
+    public void showFaild(String errorMsg) {
+        mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
     public void setHomeBanners(final List<Banner> banners) {
         List<String> images = new ArrayList();
         List<String> titles = new ArrayList();

@@ -2,32 +2,29 @@ package com.lw.wanandroid;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.blankj.utilcode.util.ToastUtils;
 import com.lw.wanandroid.base.BaseActivity;
-import com.lw.wanandroid.base.BaseFragment;
 import com.lw.wanandroid.ui.home.HomeFragment;
 import com.lw.wanandroid.ui.hotsearch.HotFragment;
 import com.lw.wanandroid.ui.knowledgesystem.KnowledgeSystemFragment;
 import com.lw.wanandroid.ui.my.MyFragment;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
+import me.yokeyword.fragmentation.ISupportFragment;
 
+@Route(path = "/wanandroid/MainActivity")
 public class MainActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     @BindView(R.id.navigation)
     BottomNavigationView mNavigation;
-    private List<BaseFragment> mFragments;
-    private int mLastFgIndex;
+    private ISupportFragment[] mFragments = new ISupportFragment[4];
     private long mExitTime;
+    private int preIndex;
 
     @Override
     protected int getLayoutId() {
@@ -41,8 +38,24 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
     @Override
     protected void initView() {
         mNavigation.setOnNavigationItemSelectedListener(this);
-        initFragment();
-        switchFragment(0);
+        ISupportFragment homeFragment = findFragment(HomeFragment.class);
+        if (homeFragment == null) {
+            mFragments[0] = HomeFragment.newInstance();
+            mFragments[1] = KnowledgeSystemFragment.newInstance();
+            mFragments[2] = MyFragment.newInstance();
+            mFragments[3] = HotFragment.newInstance();
+            loadMultipleRootFragment(R.id.layout_fragment, 0,
+                    mFragments[0],
+                    mFragments[1],
+                    mFragments[2],
+                    mFragments[3]);
+        } else {
+            // 这里我们需要拿到mFragments的引用
+            mFragments[0] = homeFragment;
+            mFragments[1] = findFragment(KnowledgeSystemFragment.class);
+            mFragments[2] = findFragment(MyFragment.class);
+            mFragments[3] = findFragment(HotFragment.class);
+        }
     }
 
     @Override
@@ -50,15 +63,18 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
         switch (item.getItemId()) {
             case R.id.navigation_home:
                 mToolbar.setTitle(R.string.app_name);
-                switchFragment(0);
+                showHideFragment(mFragments[0], mFragments[preIndex]);
+                preIndex = 0;
                 break;
             case R.id.navigation_knowledgesystem:
                 mToolbar.setTitle(R.string.title_knowledgesystem);
-                switchFragment(1);
+                showHideFragment(mFragments[1], mFragments[preIndex]);
+                preIndex = 1;
                 break;
             case R.id.navigation_my:
                 mToolbar.setTitle(R.string.title_my);
-                switchFragment(2);
+                showHideFragment(mFragments[2], mFragments[preIndex]);
+                preIndex = 2;
                 break;
         }
         return true;
@@ -74,7 +90,8 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menuHot) {
             mToolbar.setTitle(R.string.hot_title);
-            switchFragment(3);
+            showHideFragment(mFragments[3], mFragments[preIndex]);
+            preIndex = 3;
         } else if (item.getItemId() == R.id.menuSearch) {
             ARouter.getInstance().build("/hotsearch/SearchActivity").navigation();
         }
@@ -88,41 +105,10 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
                 ToastUtils.showShort(R.string.exit_system);
                 mExitTime = System.currentTimeMillis();
             } else {
-                this.finish();
+                System.exit(0);
             }
             return true;
         }
         return super.onKeyDown(keyCode, event);
-    }
-
-    /**
-     * 初始化fragment
-     */
-    private void initFragment() {
-        mFragments = new ArrayList<>();
-        mFragments.add(HomeFragment.newInstance());
-        mFragments.add(KnowledgeSystemFragment.newInstance());
-        mFragments.add(MyFragment.newInstance());
-        mFragments.add(HotFragment.newInstance());
-    }
-
-    /**
-     * 切换fragment
-     *
-     * @param position 要显示的fragment的下标
-     */
-    private void switchFragment(int position) {
-        if (position >= mFragments.size()) {
-            return;
-        }
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        Fragment targetFg = mFragments.get(position);
-        Fragment lastFg = mFragments.get(mLastFgIndex);
-        mLastFgIndex = position;
-        ft.hide(lastFg);
-        if (!targetFg.isAdded())
-            ft.add(R.id.layout_fragment, targetFg);
-        ft.show(targetFg);
-        ft.commitAllowingStateLoss();
     }
 }

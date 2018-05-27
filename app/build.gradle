@@ -1,8 +1,4 @@
 apply plugin: 'com.android.application'
-//定义时间
-def releaseTime() {
-    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
-}
 
 android {
     signingConfigs {
@@ -46,32 +42,6 @@ android {
     }
 
     buildToolsVersion '26.0.2'
-
-    // 批量打包
-    applicationVariants.all { variant ->
-        variant.outputs.all { output ->
-            def outputFile = output.outputFile
-            if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                //输出apk名称为：WanAndroid_渠道名_版本名_时间.apk
-                def fileName = "WanAndroid_${variant.productFlavors[0].name}_v${defaultConfig.versionName}_${releaseTime()}.apk"
-                outputFileName = fileName
-            }
-        }
-    }
-
-    flavorDimensions "default"
-
-    productFlavors {
-        yingyongbao {}
-        xiaomi {}
-        _360 {}
-        baidu {}
-        wandoujia {}
-    }
-
-    productFlavors.all {
-        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
-    }
 }
 
 dependencies {
@@ -107,10 +77,9 @@ dependencies {
     compile rootProject.ext.dependencies["utilcode"]
     compile rootProject.ext.dependencies["agentweb"]
     compile rootProject.ext.dependencies["flowlayout"]
+    compile rootProject.ext.dependencies["fragmentation"]
     compile rootProject.ext.dependencies["arouter-api"]
     annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
-    compile rootProject.ext.dependencies["umeng-common"]
-    compile rootProject.ext.dependencies["umeng-analytics"]
 
     annotationProcessor rootProject.ext.dependencies["dbflow-processor"]
     compile rootProject.ext.dependencies["dbflow-core"]
